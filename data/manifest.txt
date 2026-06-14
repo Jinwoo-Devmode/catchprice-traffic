@@ -1,0 +1,5 @@
+total_pending=29378
+chunk_count=196
+chunk_size=150
+shuffled=true
+seed=20260614
