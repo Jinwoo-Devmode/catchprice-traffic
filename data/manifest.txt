@@ -1,2 +1,2 @@
-total_pending=26846
-chunk_count=179
+total_pending=24920
+chunk_count=167
