@@ -10,6 +10,7 @@ import sys
 import os
 import json
 import time
+import random
 
 UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0'
 API = 'https://data.similarweb.com/api/v1/data?domain={}'
@@ -20,6 +21,9 @@ chunk_id = sys.argv[3] if len(sys.argv) > 3 else 'unknown'
 
 with open(chunk_path) as f:
     domains = [d.strip() for d in f if d.strip()]
+
+# 재실행마다 다른 순서로 처리 → 같은 chunk 반복 실행 시 chunk 전체가 점진 수집됨(꼬리 방지)
+random.shuffle(domains)
 
 # 잡 시작 시 IP 확인 (차단 여부 사전 판단)
 try:
