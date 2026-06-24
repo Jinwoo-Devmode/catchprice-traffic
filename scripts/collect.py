@@ -62,11 +62,18 @@ for d in domains:
             gr_r = gr.get('Rank') if isinstance(gr, dict) else None
             cr = j.get('CountryRank') or {}
             cr_r = cr.get('Rank') if isinstance(cr, dict) else None
+            emv = j.get('EstimatedMonthlyVisits') or {}
+            vals = [int(x) for _, x in sorted(emv.items())][-3:]  # 최근 3개월 오름차순
+            avg = int(sum(vals) / len(vals)) if vals else None
             results.append({
                 'domain': d, 'status': 'ok', 'visits': v,
                 'global_rank': gr_r, 'country_rank': cr_r,
                 'category': j.get('Category') or '',
                 'country': j.get('Country') or '',
+                'v_m1': vals[0] if len(vals) > 0 else None,
+                'v_m2': vals[1] if len(vals) > 1 else None,
+                'v_m3': vals[2] if len(vals) > 2 else None,
+                'v_3m_avg': avg, 'emv': emv,
             })
             block_streak = 0
             ok += 1
